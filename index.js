@@ -5,7 +5,8 @@ async function app() {
     let data = await initiatePokeApi();
     showData(data);
     paint(data);
-    manageComponent();
+    showIndex(indice);
+    //manageComponent();
 
     async function initiatePokeApi() {
         const resp = await fetch(URL_POKEAPI, {
@@ -18,25 +19,37 @@ async function app() {
         console.log(data);
     }
 
+    function showIndex(indice) {
+        if (indice < 0) {
+            indice = 0;
+        } else if (indice > 1118) {
+            indice = 1118;
+        }
+        let template = '';
+        template += `
+        <p>${indice} / 1118 </p>`;
+        document.querySelector('#Indice').innerHTML = template;
+    }
+
     function paint(data) {
         let template = '';
         data.results.forEach((item) => {
-            const id = item.url.split('/')[6]; //sacamos la id de la url de cada pokemon
-            console.log(id);
+            //const id = item.url.split('/')[6]; //sacamos la id de la url de cada pokemon
+            //console.log(id);
             // console.log(item);
             template += `
-        <li class="pokemon-class"><a href="details.html?id=${id}">${item.name}</a></li>`;
+        <li class="pokemon-class"><a href="details.html?id=${item.name}">${item.name}</a></li>`;
         });
         document.querySelector('.pokemon-list').innerHTML = template;
     }
 
-    function manageComponent() {
-        const allPokemons = document.querySelectorAll('.pokemon-class');
-        console.log(allPokemons);
-        allPokemons.forEach((pokemonNode) => {
-            console.log(pokemonNode);
-        });
-    }
+    // function manageComponent() {
+    //     const allPokemons = document.querySelectorAll('.pokemon-class');
+    //     console.log(allPokemons);
+    //     allPokemons.forEach((pokemonNode) => {
+    //         console.log(pokemonNode);
+    //     });
+    // }
 
     async function buttonBack() {
         console.log(`Index =`, indice);
@@ -45,6 +58,7 @@ async function app() {
         let data = await initiatePokeApi();
         showData(data);
         paint(data);
+        showIndex(indice);
     }
 
     async function buttonNext() {
@@ -54,43 +68,8 @@ async function app() {
         let data = await initiatePokeApi();
         showData(data);
         paint(data);
+        showIndex(indice);
     }
-
-    async function goToDetails() {}
-
-    //     let template = '';
-    //     data.forEach((itemSeries) => {
-    //         template += `
-    //             <li class="serie">
-    //                 <img
-    //                     class="serie__poster"
-    //                     src="${itemSeries.poster}"
-    //                     alt="${itemSeries.name}"
-    //                     data-id="${itemSeries.id}"
-    //                 />
-    //                 <h4 class="serie__title">${itemSeries.name}</h4>
-    //                 <p class="serie__info">${itemSeries.creator} (${itemSeries.year})</p>
-    //                 <ul class="score">
-    //         `;
-    //         for (let i = 1; i <= itemSeries.score; i++) {
-    //             template += `
-    //              <li class="score__star">
-    //                         <i
-    //                             class="icon--score fas fa-star"
-    //                             title="${i}/5"
-    //                         ></i>
-    //                     </li>
-    //             `;
-    //         }
-
-    //         template += `        </ul>
-    //                 <i class="fas fa-times-circle icon--delete"></i>
-    //             </li>`;
-    //     });
-    //     document
-    //         .querySelector(section)
-    //         .querySelector('.series-list').innerHTML = template;
-    // }
 
     // function render() {
     //     showData(
