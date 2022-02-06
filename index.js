@@ -19,19 +19,23 @@ async function app() {
         console.log(data);
     }
 
-    function showIndex(indice) {
+    async function showIndex(indice) {
         if (indice < 0) {
             indice = 0;
         } else if (indice > 1118) {
             indice = 1118;
         }
+        let indicepost = Number(indice) + 25;
+        if (indicepost > 1118) {
+            indicepost = 1118;
+        }
         let template = '';
         template += `
-        <p>${indice} / 1118 </p>`;
+        <p>${indice}-${indicepost} / 1118 </p>`;
         document.querySelector('#Indice').innerHTML = template;
     }
 
-    function paint(data) {
+    async function paint(data) {
         let template = '';
         data.results.forEach((item) => {
             //const id = item.url.split('/')[6]; //sacamos la id de la url de cada pokemon
@@ -113,7 +117,6 @@ async function app() {
     //         .then((data) => console.log(data));
     //     render();
     // }
-
     document.querySelector('#ButtonBack').addEventListener('click', buttonBack);
     document.querySelector('#ButtonNext').addEventListener('click', buttonNext);
 }
